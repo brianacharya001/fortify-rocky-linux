@@ -2,13 +2,13 @@
 FROM docker.io/rockylinux/rockylinux:8
 
 # Copy Over the Require Artifacts to Install Fortify
-COPY artifacts /artifacts
+# COPY artifacts /artifacts --put comment
 
 # Install Required Dependencies
 RUN yum install unzip -y
 RUN wget --user=admin  --password=#Newyear2065# "http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/#browse/browse:vic:vic%2Fjdk-11.0.12_linux-x64_bin.rpm"
 # Install Oracle JDK 11
-WORKDIR /artifacts
+# WORKDIR /artifacts ------put comment
 RUN rpm -ivh jdk-11.0.12_linux-x64_bin.rpm
 
 # Setting the Environment Variables for Java
