@@ -7,6 +7,9 @@ WORKDIR /tmp
 
 # copy all local files over
 COPY . .
+# Remove Certificate Verification
+RUN yum install yum-utils -y
+RUN yum-config-manager --save --setopt=appstream.sslverify=false
 
 # Copy Over the Require Artifacts to Install Fortify
 # COPY artifacts /artifacts --put comment
