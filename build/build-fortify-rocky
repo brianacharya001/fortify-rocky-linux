@@ -2,6 +2,11 @@
 FROM docker.io/rockylinux/rockylinux:8
 #FROM rhel7/rhel-atomic:7.9-438
 # FROM quay.io/centos/centos
+# work in temp for the install
+WORKDIR /tmp
+
+# copy all local files over
+COPY . .
 
 # Copy Over the Require Artifacts to Install Fortify
 # COPY artifacts /artifacts --put comment
