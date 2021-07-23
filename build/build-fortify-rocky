@@ -1,6 +1,7 @@
 # Setting up Fortify Image with Base of Rocky Linux 
 # FROM docker.io/rockylinux/rockylinux:8
-FROM rhel7/rhel-atomic:7.9-438
+#FROM rhel7/rhel-atomic:7.9-438
+FROM quay.io/centos/centos
 
 # Copy Over the Require Artifacts to Install Fortify
 # COPY artifacts /artifacts --put comment
