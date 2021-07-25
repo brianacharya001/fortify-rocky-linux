@@ -13,4 +13,4 @@ docker run -d -p 443:2424 --name fortify fortify-rocky
 ```
 
 ## Get the Token by running
-cat /root/.fortify/ssc/init.token
+cat /.fortify/ssc/init.token
