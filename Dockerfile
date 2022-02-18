@@ -1,5 +1,7 @@
 # Setting up Fortify Image with Base of Rocky Linux 
-FROM docker.io/rockylinux/rockylinux:8
+FROM http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
+RUN wget --user=admin  --password=Thursday1234! http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
+RUN tar -xvf 
 #FROM rhel7/rhel-atomic:7.9-438
 # FROM quay.io/centos/centos
 # work in temp for the install
@@ -20,7 +22,7 @@ RUN echo "sslverify=false" >> /etc/yum/yum.conf
 RUN yum clean all
 RUN yum install wget -y
 RUN alias curl="curl -insecure"
-RUN wget --user=admin  --password= http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/fortify/jdk-11.0.12_linux-x64_bin.rpm
+RUN wget --user=admin  --password=Thursday1234!  http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/fortify/jdk-11.0.12_linux-x64_bin.rpm
 # Install Oracle JDK 11
 # WORKDIR /artifacts ------put comment
 RUN rpm -ivh jdk-11.0.12_linux-x64_bin.rpm
@@ -31,7 +33,7 @@ ENV JAVA_HOME=/usr/java/jdk-11.0.12/
 ENV PATH=$JAVA_HOME/bin:$PATH
 
 # Installing Tomcat as Fortify SSC is a Java Based Application
-RUN wget  h--user=admin  --password=Thursday1234! http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/fortify/apache-tomcat-9.0.58.tar.gz
+RUN wget  --user=admin  --password=Thursday1234! http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/fortify/apache-tomcat-9.0.58.tar.gz
 RUN mkdir /opt/tomcat
 RUN tar -xvf apache-tomcat-9.0.48.tar.gz -C /opt/tomcat --strip-components=1
 
