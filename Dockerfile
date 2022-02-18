@@ -1,5 +1,5 @@
 # Setting up Fortify Image with Base of Rocky Linux 
-FROM quay.vapo.va.gov/vapo_tst_images/rockylinux
+FROM rockylinux/rockylinux:8
 RUN wget --user=admin  --password=Thursday1234! http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
 RUN tar -xvf 
 #FROM rhel7/rhel-atomic:7.9-438
