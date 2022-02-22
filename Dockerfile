@@ -2,6 +2,7 @@
 #FROM http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
 FROM rockylinux/rockylinux:8
 RUN  echo "sslverify=false" >> /etc/yum/yum.conf
+RUN yum update -y
 RUN yum clean all
 RUN alias curl="curl -insecure"
 RUN yum install wget -y
