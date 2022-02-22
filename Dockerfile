@@ -1,6 +1,6 @@
 # Setting up Fortify Image with Base of Rocky Linux 
 #FROM http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
-FROM rockylinux/rockylinux:8
+FROM rockylinux/rockylinux:latest
 RUN  echo "sslverify=false" >> /etc/yum/yum.conf
 RUN yum update -y
 RUN yum clean all
