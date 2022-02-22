@@ -1,8 +1,6 @@
 # Setting up Fortify Image with Base of Rocky Linux 
 #FROM http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
 FROM rockylinux/rockylinux:8
-RUN yum install ca-certificates
-RUN update-ca-trust force-enable
 RUN yum install wget -y
 RUN wget --user=admin  --password=Thursday1234! http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
 RUN tar -xvf 
