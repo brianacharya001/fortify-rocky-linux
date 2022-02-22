@@ -11,7 +11,8 @@ rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 RUN  dnf install ca-certificates -y
 RUN set sslverify=0 into /etc/dnf/dnf.conf
-
+RUN set sslverify=1 into /etc/dnf/dnf.conf
+RUN dnf clean all
 RUN yum -y update && yum clean all && yum install wget -y
 RUN wget --user=admin  --password=Thursday1234! http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
 RUN tar -xvf 
