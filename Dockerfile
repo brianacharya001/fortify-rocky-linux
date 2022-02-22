@@ -9,6 +9,9 @@ rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
 rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
 rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
+RUN  dnf install ca-certificates -y
+RUN set sslverify=0 into /etc/dnf/dnf.conf
+
 RUN yum -y update && yum clean all && yum install wget -y
 RUN wget --user=admin  --password=Thursday1234! http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
 RUN tar -xvf 
@@ -77,4 +80,4 @@ RUN mv context.xml /opt/tomcat/webapps/manager/META-INF/context.xml
 EXPOSE 2424
 
 # Setup the Runtime for the Container
-CMD ["catalina.sh", "run"]
+CMD ["catalina.sh", "run
