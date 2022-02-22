@@ -22,8 +22,8 @@ RUN yum-config-manager --save --setopt=appstream.sslverify=false
 # RUN yum install unzip -y --- put comment
 RUN echo "sslverify=false" >> /etc/yum/yum.conf
 RUN yum clean all
-# RUN yum install wget -y
-RUN alias curl="curl -insecure"
+ RUN yum install wget -y
+# RUN alias curl="curl -insecure"
 RUN wget --user=admin  --password=Thursday1234!  http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/fortify/jdk-11.0.12_linux-x64_bin.rpm
 # Install Oracle JDK 11
 # WORKDIR /artifacts ------put comment
