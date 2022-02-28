@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortify
+  namespace: fortify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortify
+  template:
+    metadata:
+      labels:
+        app: fortify
+    spec:
+      containers:
+        - name: fortify
+          image: fortify:latest
+          resources:
+            limits:
+              memory: "27Gi"
+              cpu: "8000m"
+            requests:
+              memory: "6Gi"
+              cpu: "1000m"
+          ports:
+          - containerPort: 443
+          volumeMounts:
+            - name: data
+              mountPath: /fortify        
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+              claimName: fortifypvc
