@@ -87,4 +87,4 @@ RUN mv context.xml /opt/tomcat/webapps/manager/META-INF/context.xml
 EXPOSE 2424
 
 # Setup the Runtime for the Container
-CMD ["catalina.sh", "run
+CMD ["catalina.sh", "run"]
