@@ -1,0 +1,69 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: fortify-mysql-db
+  namespace: fortify-scc
+  labels:
+    app: fortify-mysql-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortify-mysql-db
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: fortify-mysql-db
+        deploymentconfig: fortify-mysql-db
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+    spec:
+      volumes:
+        - name: fortify-mysql-db-1
+          configMap:
+            name: mysqldb
+            defaultMode: 420
+        - name: data
+          persistentVolumeClaim:
+            claimName: mysqldb
+      containers:
+        - resources:
+            limits:
+              cpu: '4'
+              memory: 4000Mi
+            requests:
+              cpu: '2'
+              memory: 2000Mi
+          terminationMessagePath: /dev/termination-log
+          name: fortify-mysql-db
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: admin
+            - name: MYSQL_DATABASE
+              value: ssc_db
+            - name: MYSQL_USER
+              value: sscuser
+            - name: MYSQL_PASSWORD
+              value: admin
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+            - containerPort: 33060
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: fortify-mysql-db-1
+              mountPath: /etc/mysql/conf.d/fortify.cnf
+              subPath: fortify.cnf
+            - name: data
+              mountPath: /var/lib/mysql
+          terminationMessagePolicy: File
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/fortify-scc/fortify-mysql-db@sha256:516b92a7ccf2340c1a696a7ad2de1784393d0876d042cc4913bc33fb3f455a75
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  
