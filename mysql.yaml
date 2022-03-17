@@ -18,11 +18,6 @@ spec:
         deploymentconfig: fortify-mysql-db
     spec:
       containers:
-      restartPolicy: Always
-      terminationGracePeriodSeconds: 30
-      dnsPolicy: ClusterFirst
-      securityContext: {}
-      schedulerName: default-scheduler
       - image: mysql:8.0
         name: fortify-mysql-db
         terminationMessagePath: /dev/termination-log
