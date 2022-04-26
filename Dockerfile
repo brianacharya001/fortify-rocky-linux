@@ -17,7 +17,7 @@ RUN set sslverify=0 into /etc/dnf/dnf.conf
 RUN set sslverify=1 into /etc/dnf/dnf.conf
 RUN dnf clean all
 RUN yum -y update && yum clean all && yum install wget -y
-RUN wget --user=admin  --password=Thursday1234! http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/forttify/rockylinux.tar
+RUN wget --user=xxxxxx  --password=xxxxxxx! http://nexus3-openshift-xxxxxxxxxxxxxxxx
 RUN tar -xvf rockylinux.tar
 #FROM rhel7/rhel-atomic:7.9-438
 # FROM quay.io/centos/centos
@@ -53,7 +53,7 @@ ENV JAVA_HOME=/usr/java/jdk-11.0.12/
 ENV PATH=$JAVA_HOME/bin:$PATH
 
 # Installing Tomcat as Fortify SSC is a Java Based Application
-RUN wget  --user=admin  --password=Thursday1234! http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/fortify/apache-tomcat-9.0.58.tar.gz
+RUN wget  --user=xxxxxxxxxxxn  --password=xxxxxxxxxxxxxxxxxxxx http://nexus3-openshift-xxxxxxxxxxxxxxxxxx/apache-tomcat-9.0.58.tar.gz
 RUN mkdir /opt/tomcat
 RUN tar -xvf apache-tomcat-9.0.58.tar.gz -C /opt/tomcat --strip-components=1
 
@@ -62,7 +62,7 @@ ENV CATALINA_HOME /opt/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 
 # Deploy the SCC WAR to the Tomcat Deployments Folder
-RUN wget --user=admin  --password=Thursday1234!     http://nexus3-openshift-operators.apps.vapo-ppd.va.gov/repository/vapo/vapo/fortify/ssc.war
+RUN wget --user=xxxxxxxxxx  --password=xxxxxxxxxxxxxxx     http://nexus3-openshift-operators.xxxxxxxxxxxxxssc.war
 RUN mv ssc.war /opt/tomcat/webapps
 
 # Setting up for SSL/443
