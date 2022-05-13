@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortify-mysql-db
+  namespace: fortify-scc
+  labels:
+    app: fortify-mysql-db
+spec:
+  selector:
+    matchLabels:
+      app: fortify-mysql-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: fortify-mysql-db
+        deploymentconfig: fortify-mysql-db
+    spec:
+      containers:
+      - image: mysql:8.0
+        name: fortify-mysql-db
+        terminationMessagePath: /dev/termination-log
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: '4'
+            memory: 4000Mi
+          requests:
+            cpu: '2'
+            memory: 2000Mi
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: admin
+          - name: MYSQL_DATABASE
+            value: ssc_db
+          - name: MYSQL_USER
+            value: sscuser
+          - name: MYSQL_PASSWORD
+            value: admin
+        ports:
+          - containerPort: 3306
+            protocol: TCP
+          - containerPort: 33060
+            protocol: TCP
+        volumeMounts:
+          - name: fortify-mysql-db-1
+            mountPath: /etc/mysql/conf.d/fortify.cnf
+            subPath: fortify.cnf
+          - name: data
+            mountPath: /var/lib/mysql
+          - name: mysql-initscript
+            mountPath: /docker-entrypoint-initdb.d
+        terminationMessagePolicy: File
+      volumes:
+        - name: fortify-mysql-db-1
+          configMap:
+            name: mysqldb
+            defaultMode: 420
+        - name: data
+          persistentVolumeClaim:
+            claimName: mysqldb
+        - name: mysql-initscript
+          configMap:
+            name: mysql-initdb-config       
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  init.sql: |
+delimiter //
+
+CREATE PROCEDURE mysql.check_create()
+BEGIN
+    CREATE DATABASE IF NOT EXISTS ssc_db;
+    SET @table_count := (SELECT count(*)
+ FROM information_schema.tables WHERE table_schema = 'ssc_db');
+    IF @table_count = 0 THEN
+
+        CREATE TABLE ssc_db.sample_tab(id INT, name VARCHAR(256), age INT, gender VARCHAR(3));
+
+    END IF;
+
+END;
+//
+
+delimiter ;
+
+CALL mysql.check_create();
+DROP PROCEDURE mysql.check_create;
